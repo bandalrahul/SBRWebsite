@@ -1,15 +1,13 @@
 [build]
-  command = "swift build"
+  command = """
+  wget https://download.swift.org/swift-5.8-release/ubuntu2204/swift-5.8-RELEASE/swift-5.8-RELEASE-ubuntu22.04.tar.gz
+  tar -xvzf swift-5.8-RELEASE-ubuntu22.04.tar.gz || tar -xvf swift-5.8-RELEASE-ubuntu22.04.tar
+  export PATH=$PWD/swift-5.8-RELEASE-ubuntu22.04/usr/bin:$PATH
+  swift --version
+  """
   environment = { SWIFT_VERSION = "5.8" }
   base = "ubuntu22.04"
 
 [context.production]
   environment = { SWIFT_VERSION = "5.8" }
-
-  command = """
-  export SWIFT_VERSION=5.8
-  curl -s https://download.swift.org/swift-${SWIFT_VERSION}-release/ubuntu2004/swift-${SWIFT_VERSION}-RELEASE/swift-${SWIFT_VERSION}-RELEASE-ubuntu20.04.tar.gz | tar -xz
-  export PATH=$(pwd)/swift-${SWIFT_VERSION}-RELEASE-ubuntu20.04/usr/bin:$PATH
-  swift package clean && swift build --disable-sandbox && swift run
-  """
   publish = "Output/"
