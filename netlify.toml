@@ -6,7 +6,6 @@
   swift --version
   """
   environment = { SWIFT_VERSION = "5.8" }
-  base = "ubuntu22.04"
 
 [context.production]
   environment = { SWIFT_VERSION = "5.8" }
