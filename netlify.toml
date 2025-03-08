@@ -1,5 +1,9 @@
 [build]
-  command = "publish run"
+  command = """
+  swift package update
+  swift build -c release
+  ./.build/release/Publish run
+  """
   publish = "Output/"
 
 [build.environment]
