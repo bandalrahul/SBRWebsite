@@ -2,7 +2,7 @@
   command = """
   swift package update
   swift build -c release
-  ./.build/release/Publish run
+  swift run publish run
   """
   publish = "Output/"
 
