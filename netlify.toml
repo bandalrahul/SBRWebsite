@@ -5,8 +5,8 @@
   export PATH=$PWD/swift-5.8-RELEASE-ubuntu22.04/usr/bin:$PATH
   swift --version
   """
-  environment = { SWIFT_VERSION = "5.8" }
+  environment = { SWIFT_VERSION = "6.0" }
 
 [context.production]
-  environment = { SWIFT_VERSION = "5.8" }
+  environment = { SWIFT_VERSION = "6.0" }
   publish = "Output/"
