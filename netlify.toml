@@ -10,6 +10,7 @@ swift --version
 swift build -c release
 swift run SwiftByRahul
 """
+command = "swift run --configuration release SwiftByRahul && cp -r Resources/Images Output/Images"
 publish = "Output/"
 
 [build.environment]
