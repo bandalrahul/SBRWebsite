@@ -7,7 +7,7 @@ tags: first, article
 Push notifications are the best way to fascinate the audience towards your iOS app. It’s like an alarm to convey your message to your user. Push notifications in ios are handled and authorized by APNs( Apple Push notification services). 
 
 <div style="text-align: center;">
-    <img src="/Images/PushNotificationSimulator/demo.png" alt="Swift Logo">
+    <img src="/Images/demo.png" alt="Swift Logo">
 </div>
 
 
