@@ -3,7 +3,7 @@ name: Deploy Publish Site
 on:
   push:
     branches:
-      - main
+      - main  # Trigger deployment on main
 
 jobs:
   deploy:
@@ -20,16 +20,13 @@ jobs:
         run: |
           mkdir -p Output  # Ensure Output/ exists
           swift run || echo "❌ Swift build failed!"
-          ls -lah  # Check files in root directory
+          ls -lah || echo "❌ Root directory is empty!"
           ls -lah Output || echo "❌ Output folder is missing!"
 
-      - name: Find Output Folder (Debug)
-        run: find . -type d -name "Output"
-
       - name: Deploy to GitHub Pages
-        if: success()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
+          publish_branch: main  # Deploy to main instead of gh-pages
           publish_dir: ./Output
+          keep_files: true  # Prevents deleting existing files
