@@ -21,6 +21,7 @@ jobs:
         run: |
           swift run  # This generates the site in Output/
           ls -l  # Check if Output/ is created
+          ls -lah Output  # Verify Output/ exists
 
       - name: Debug Output Folder
         run: ls -lah
