@@ -19,6 +19,7 @@ jobs:
 
       - name: Build Site
         run: |
+          mkdir -p Output  # Ensure Output/ folder exists
           swift run  # This generates the site in Output/
           ls -l  # Check if Output/ is created
           ls -lah Output  # Verify Output/ exists
