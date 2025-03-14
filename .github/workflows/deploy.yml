@@ -20,10 +20,14 @@ jobs:
       - name: Build Site
         run: |
           swift run  # This generates the site in Output/
+          ls -l  # Check if Output/ is created
 
+      - name: Debug Output Folder
+        run: ls -lah
+        
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
+          publish_branch: main
           publish_dir: ./Output  # Deploy directly from Output/
