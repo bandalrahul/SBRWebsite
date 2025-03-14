@@ -253,14 +253,11 @@ private struct SiteFooter: Component {
         }
     }
 }
-
-try SwiftByRahul().publish(
-    using: [
-        .addMarkdownFiles(),               // Adds all markdown files to the website
-              .copyResources(),                  // Ensures that images and other resources are copied
-        .generateHTML(withTheme: .myTheme)       // Use the custom theme (MyTheme in this case)
-    ]
-)
+try SwiftByRahul().publish(at: "Output", using: [
+    .addMarkdownFiles(),               // Adds all markdown files to the website
+          .copyResources(),                  // Ensures that images and other resources are copied
+    .generateHTML(withTheme: .myTheme)       // Use the custom theme (MyTheme in this case)
+])
 
 func adsenseBanner() -> Node<HTML.BodyContext> {
     return .div(
