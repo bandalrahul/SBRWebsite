@@ -3,33 +3,33 @@ name: Deploy Publish Site
 on:
   push:
     branches:
-      - main  # Adjust if using a different branch
+      - main
 
 jobs:
   deploy:
-    runs-on: macos-latest  # macOS is needed for Swift
+    runs-on: macos-latest  # macOS is required for Swift
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Install Swift
-        run: |
-          swift --version  # Verify Swift installation
+        run: swift --version  # Verify Swift installation
 
       - name: Build Site
         run: |
-          mkdir -p Output  # Ensure Output/ folder exists
-          swift run  # This generates the site in Output/
-          ls -l  # Check if Output/ is created
-          ls -lah Output  # Verify Output/ exists
+          mkdir -p Output  # Ensure Output/ exists
+          swift run || echo "❌ Swift build failed!"
+          ls -lah  # Check files in root directory
+          ls -lah Output || echo "❌ Output folder is missing!"
 
-      - name: Debug Output Folder
-        run: ls -lah
-        
+      - name: Find Output Folder (Debug)
+        run: find . -type d -name "Output"
+
       - name: Deploy to GitHub Pages
+        if: success()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: main
-          publish_dir: ./Output  # Deploy directly from Output/
+          publish_branch: gh-pages
+          publish_dir: ./Output
