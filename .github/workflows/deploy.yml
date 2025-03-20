@@ -18,29 +18,33 @@ jobs:
 
       - name: Build Site
         run: |
-          mkdir -p SBRWebsite  # Ensure Output/ exists
+          mkdir -p Output  # Ensure Output/ exists
+          echo "Building site..."
           swift run || { echo "❌ Swift build failed!"; exit 1; }  # Fail the job if Swift build fails
-          ls -lah  # List root directory contents
-          ls -lah SBRWebsite || { echo "❌ Output folder is missing!"; exit 1; }  # List Output directory if it exists
+          ls -lah  # List the root directory contents
+          ls -lah Output || { echo "❌ Output folder is missing!"; exit 1; }  # List Output directory if it exists
 
       - name: Verify Output Folder Exists
         run: |
-          if [ -d "./SBRWebsite" ]; then
+          if [ -d "./Output" ]; then
             echo "✅ Output folder exists."
           else
             echo "❌ Output folder is missing!"
             exit 1
           fi
 
+      - name: List Output Directory Contents
+        run: ls -lah ./Output  # Ensure the Output folder contains files
+
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./SBRWebsite  # Path to the folder you want to upload
+          path: ./Output  # Path to the folder you want to upload
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GH_TOKEN }}  # Use the custom PAT secret
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages  # Deploy to gh-pages instead of main
-          publish_dir: ./SBRWebsite
+          publish_dir: ./Output
           keep_files: true  # Prevents deleting existing files
