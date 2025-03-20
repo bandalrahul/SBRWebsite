@@ -19,9 +19,18 @@ jobs:
       - name: Build Site
         run: |
           mkdir -p Output  # Ensure Output/ exists
-          swift run || echo "❌ Swift build failed!"
+          swift run || { echo "❌ Swift build failed!"; exit 1; }  # Fail the job if Swift build fails
           ls -lah  # Check the root directory
-          ls -lah Output || echo "❌ Output folder is missing!"
+          ls -lah Output || { echo "❌ Output folder is missing!"; exit 1; }  # Fail if Output is missing
+
+      - name: Verify Output Folder
+        run: |
+          if [ -d "./Output" ]; then
+            echo "✅ Output folder exists."
+          else
+            echo "❌ Output folder is missing!"
+            exit 1
+          fi
 
       - name: Find Output Folder
         run: find . -type d -name "Output"
@@ -32,4 +41,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages  # Deploy to gh-pages instead of main
           publish_dir: ./Output
-          keep_files: true  # Prevents deleting existing files
+          keep_files: true 
