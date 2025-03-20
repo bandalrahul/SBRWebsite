@@ -20,8 +20,8 @@ jobs:
         run: |
           mkdir -p Output  # Ensure Output/ exists
           swift run || { echo "❌ Swift build failed!"; exit 1; }  # Fail the job if Swift build fails
-          ls -lah  # Check the root directory
-          ls -lah Output || { echo "❌ Output folder is missing!"; exit 1; }  # Fail if Output is missing
+          ls -lah  # List root directory contents
+          ls -lah Output || { echo "❌ Output folder is missing!"; exit 1; }  # List Output directory if it exists
 
       - name: Verify Output Folder Exists
         run: |
@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./Output  # Path to the folder you want to upload
-          
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
