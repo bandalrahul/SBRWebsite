@@ -23,7 +23,7 @@ jobs:
           ls -lah  # Check the root directory
           ls -lah Output || { echo "❌ Output folder is missing!"; exit 1; }  # Fail if Output is missing
 
-      - name: Verify Output Folder
+      - name: Verify Output Folder Exists
         run: |
           if [ -d "./Output" ]; then
             echo "✅ Output folder exists."
@@ -32,10 +32,15 @@ jobs:
             exit 1
           fi
 
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./Output  # Path to the folder you want to upload
+          
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GH_TOKEN }}  # Use the custom PAT secret
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages  # Deploy to gh-pages instead of main
           publish_dir: ./Output
           keep_files: true  # Prevents deleting existing files
