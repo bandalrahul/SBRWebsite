@@ -32,13 +32,10 @@ jobs:
             exit 1
           fi
 
-      - name: Find Output Folder
-        run: find . -type d -name "Output"
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_TOKEN }}  # Use the custom PAT secret
           publish_branch: gh-pages  # Deploy to gh-pages instead of main
           publish_dir: ./Output
-          keep_files: true 
+          keep_files: true  # Prevents deleting existing files
