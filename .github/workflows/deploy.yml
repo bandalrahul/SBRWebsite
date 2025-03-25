@@ -12,6 +12,13 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          clean: true  # Ensures the repository is cleaned before checking out
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "Rahul Bandal"
+          git config --global user.email "bandalrahul@yahoo.com"
 
       - name: Install Swift
         run: swift --version  # Verify Swift installation
