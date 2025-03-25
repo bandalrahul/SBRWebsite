@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          clean: true  # Ensures the repository is cleaned before checking out
 
       - name: Configure Git
         run: |
@@ -49,7 +51,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # Use the default GitHub token
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Use the default GitHub token for authentication
           publish_branch: gh-pages  # Deploy to the gh-pages branch
           publish_dir: ./Output  # Deploy the contents of the Output folder
           keep_files: true  # Prevents deleting existing files in the gh-pages branch
