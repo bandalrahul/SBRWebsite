@@ -4,6 +4,5 @@
 /.swiftpm
 /*.xcodeproj
 .publish
-Output
 # Local Netlify folder
 .netlify

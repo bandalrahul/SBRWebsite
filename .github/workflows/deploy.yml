@@ -19,8 +19,9 @@ jobs:
       - name: Build Site
         run: |
           mkdir -p Output  # Ensure Output/ exists
+          echo "Building site..."
           swift run || { echo "❌ Swift build failed!"; exit 1; }  # Fail the job if Swift build fails
-          ls -lah  # List root directory contents
+          ls -lah  # List the root directory contents
           ls -lah Output || { echo "❌ Output folder is missing!"; exit 1; }  # List Output directory if it exists
 
       - name: Verify Output Folder Exists
@@ -32,6 +33,9 @@ jobs:
             exit 1
           fi
 
+      - name: List Output Directory Contents
+        run: ls -lah ./Output  # Ensure the Output folder contains files
+
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -41,6 +45,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages  # Deploy to gh-pages instead of main
+          publish_branch: gh-pages  # Deploy to the gh-pages branch instead of main
           publish_dir: ./Output
           keep_files: true  # Prevents deleting existing files
