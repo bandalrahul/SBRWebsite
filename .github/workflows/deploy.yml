@@ -1,9 +1,9 @@
-name: Deploy Publish Site
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # Trigger on the main branch
+      - main  # Trigger the workflow when changes are pushed to the main branch
 
 jobs:
   deploy:
@@ -16,13 +16,13 @@ jobs:
       - name: Install Swift
         run: swift --version  # Verify Swift installation
 
-      - name: Build Site
+      - name: Build the site
         run: |
-          mkdir -p Output  # Ensure Output/ exists
-          echo "Building site..."
+          mkdir -p Output  # Ensure Output directory exists
+          echo "Building the site with Swift..."
           swift run || { echo "❌ Swift build failed!"; exit 1; }  # Fail the job if Swift build fails
           ls -lah  # List the root directory contents
-          ls -lah Output || { echo "❌ Output folder is missing!"; exit 1; }  # List Output directory if it exists
+          ls -lah Output || { echo "❌ Output folder is missing!"; exit 1; }  # Verify Output folder
 
       - name: Verify Output Folder Exists
         run: |
@@ -44,8 +44,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages  # Deploy to the gh-pages branch instead of main
-          publish_dir: ./Output
-          keep_files: true  # Prevents deleting existing files
-          continue-on-error: true 
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Automatically available in GitHub Actions
+          publish_branch: gh-pages  # Deploy to the gh-pages branch
+          publish_dir: ./Output  # Deploy the contents of the Output folder
+          keep_files: true  # Prevents deleting existing files in the gh-pages branch
