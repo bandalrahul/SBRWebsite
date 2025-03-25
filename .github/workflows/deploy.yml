@@ -12,13 +12,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-        with:
-          clean: true  # Ensures the repository is cleaned before checking out
 
       - name: Configure Git
         run: |
-          git config --global user.name "Rahul Bandal"
-          git config --global user.email "bandalrahul@yahoo.com"
+          git config --global user.name "Your Name"
+          git config --global user.email "youremail@example.com"
 
       - name: Install Swift
         run: swift --version  # Verify Swift installation
@@ -51,7 +49,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.PAT_TOKEN }}  # Automatically available in GitHub Actions
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Use the default GitHub token
           publish_branch: gh-pages  # Deploy to the gh-pages branch
           publish_dir: ./Output  # Deploy the contents of the Output folder
           keep_files: true  # Prevents deleting existing files in the gh-pages branch
