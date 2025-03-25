@@ -48,3 +48,4 @@ jobs:
           publish_branch: gh-pages  # Deploy to the gh-pages branch instead of main
           publish_dir: ./Output
           keep_files: true  # Prevents deleting existing files
+          continue-on-error: true 
