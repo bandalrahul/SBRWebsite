@@ -51,7 +51,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # Automatically available in GitHub Actions
+          github_token: ${{ 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 }}  # Automatically available in GitHub Actions
           publish_branch: gh-pages  # Deploy to the gh-pages branch
           publish_dir: ./Output  # Deploy the contents of the Output folder
           keep_files: true  # Prevents deleting existing files in the gh-pages branch
